@@ -1,0 +1,32 @@
+﻿@model ImportExcel.Models.Labor
+@{
+    ViewData["Title"] = "ShowDB";
+}
+
+<h1>ShowDB</h1>
+<div>
+	<div class="row">
+		<div class="col">
+			<table>
+				@foreach (var l in ViewBag.labors)
+				{
+					<tr>
+						<td>@l.Name</td>
+						<td>@l.Birthdate</td>
+						<td>@l.aa</td>
+						<td>@l.aaDate</td>
+						<td>@l.Salary</td>
+					</tr>
+
+				}
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<a class="btn btn-dark"  asp-action="ExportExcel" >匯出</a>
+		</div>
+	</div>
+</div>
+

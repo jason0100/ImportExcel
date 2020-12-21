@@ -1,0 +1,51 @@
+﻿@model ImportExcel.Models.Upload.uploadFile
+@{
+	ViewData["Title"] = "ImportExcel";
+}
+
+<h1>ImportExcel</h1>
+
+<div>
+
+	<div class="row">
+		<div class="col-6">
+			<h2>小檔案上傳</h2>
+			<form method="post" enctype="multipart/form-data" asp-action="Upload">
+				<input type="file" asp-for="file" />
+				<span asp-validation-for="file" class="text-danger"></span>
+				<input type="submit" value="Upload" />
+			</form>
+			@Html.Raw(TempData["result"])
+		</div>
+		<div class="col-6">
+			@Html.Raw(ViewBag.fileList)
+		</div>
+	
+
+	</div>
+	<div><br /><br /><br /><br /></div>
+	<div class="row">
+		<div class="col">
+			<h2>EXCEL上傳</h2>
+			<form method="post" enctype="multipart/form-data" asp-action="Import">
+				<input type="file" name="excelfile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+				<input type="submit" value="送出" />
+			</form>
+		</div>
+	</div>
+
+	<div><br /><br /><br /><br /></div>
+	<div class="row">
+		<div class="col">
+			<h2>大檔案上傳</h2>
+
+			<form method="post" enctype="multipart/form-data" asp-action="album">
+				名稱：<input type="text" name="title" /><br />
+				日期：<input type="date" name="date" /><br />
+				相片：<input type="file" name="photos" multiple accept="image/*" /><br />
+				<input type="submit" value="送出" />
+			</form>
+		</div>
+	</div>
+
+</div>

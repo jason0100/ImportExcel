@@ -1,0 +1,70 @@
+﻿
+@{
+	ViewData["Title"] = "Test";
+}
+
+<h1>Test</h1>
+
+
+<form method="post" id="form1" action="/Captcha/verify">
+	<div class="">
+		<input type="text" name="code" />
+		<img class="zoom" id="code" src="/Captcha/GetValidateCode/" />
+		<button class="btn btn-primary" type="button" id="refreshCaptcha">刷新</button>
+	</div>
+	<div>
+		<input type="submit" value="驗證" />
+	</div>
+	<H2>Hi.Captcha</H2>
+	<div class="">
+		<input type="text" name="code" />
+		<img class="zoom" id="code" src="/Captcha/BubbleCode/" />
+		<button class="btn btn-primary" type="button" id="refreshCaptcha">刷新</button>
+	</div>
+	<div>
+		<input type="submit" value="驗證" />
+	</div>
+
+	<div class="">
+		<input type="text" name="code" />
+		<img class="zoom" id="code" src="/Captcha/HybridCode/" />
+		<button class="btn btn-primary" type="button" id="refreshCaptcha">刷新</button>
+	</div>
+	<div>
+		<input type="submit" value="驗證" />
+	</div>
+	<div class="">
+		<input type="text" name="code" />
+		<img class="zoom" id="code" src="/Captcha/GifBubbleCode/" />
+		<button class="btn btn-primary" type="button" id="refreshCaptcha">刷新</button>
+	</div>
+	<div>
+		<input type="submit" value="驗證" />
+	</div>
+
+	<div class="">
+		<input type="text" name="code" />
+		<img class="zoom" id="code" src="/Captcha/GifHybridCode/" />
+		<button class="btn btn-primary" type="button" id="refreshCaptcha">刷新</button>
+	</div>
+	<div>
+		<input type="submit" value="驗證" />
+	</div>
+
+</form>
+
+
+@section Scripts{
+
+
+
+	<script>
+
+		$('#refreshCaptcha').click(function () {
+			var unique = $.now();
+
+			$('#code').attr('src', '/Captcha/GetValidateCode/?' + unique)
+		});
+
+	</script>
+}
