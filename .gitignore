@@ -38,3 +38,7 @@ msbuild.wrn
 doc
 
 TestDapper/TestDapper/Configuration/settings.json
+ImportExcel/ImportExcel/Configuration/settings.Development.json
+ImportExcel/ImportExcel/Configuration/settings.Production.json
+wwwroot/
+wwwroot/UploadFolder/*

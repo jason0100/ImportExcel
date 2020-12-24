@@ -22,6 +22,8 @@ using Microsoft.Extensions.Configuration;
 using Dapper;
 using OfficeOpenXml.Style;
 using System.Drawing;
+using System.IO.Compression;
+using Ionic.Zip;
 
 namespace ImportExcel.Controllers
 {
@@ -258,12 +260,12 @@ namespace ImportExcel.Controllers
 					conn.Open();
 					labors = conn.Query<Labor>(sqlCommand).ToList();
 				}*/
-			
+
 			//Query from store procedure
 			using (var conn = new SqlConnection(_config.GetConnectionString("serverConnection")))
 			{
-				
-				labors = conn.Query<Labor>("dbo.列出不重複員工名冊",commandType:System.Data.CommandType.StoredProcedure).ToList();
+
+				labors = conn.Query<Labor>("dbo.列出不重複員工名冊").ToList();
 			}
 
 
@@ -307,7 +309,7 @@ namespace ImportExcel.Controllers
 			var memoryStream = new MemoryStream();
 
 			var output = new FileInfo(Path.Combine(_env.WebRootPath, _folder, "ExportExcelTest-" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".xlsx"));
-		
+
 			using (var excel = new ExcelPackage(memoryStream))
 			{
 				var ws = excel.Workbook.Worksheets.Add("sheet1");
@@ -373,7 +375,40 @@ namespace ImportExcel.Controllers
 			{
 				FileDownloadName = "勞保員工清冊.xlsx"
 			};
+
+		}
+		[HttpGet]
+		public async Task<IActionResult> DownloadZip()
+		{
+			DirectoryInfo dir = new DirectoryInfo(_folder);
+			var files = dir.GetFiles();
+			string rootPath = AppDomain.CurrentDomain.BaseDirectory;
+				var bytes = default(byte[]);
+		
+	
+			using (var zip = new Ionic.Zip.ZipFile())
+			{
+				zip.Password = "P@ssW0rd";
+				foreach (var i in files)
+				{
+					zip.AddFile(i.FullName, ".\\1.jpg").FileName=Guid.NewGuid()+".jpg";//第二個欄位是zip內的目錄
+				}
 				
+				
+				using (var ms = new MemoryStream())
+				{
+					zip.Save(ms);
+					bytes = ms.ToArray();
+					
+					return  File(bytes, "application/zip");
+				}
+				
+				
+			}
+
+
+
+
 		}
 
 
